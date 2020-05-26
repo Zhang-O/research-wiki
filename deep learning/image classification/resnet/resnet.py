@@ -59,12 +59,17 @@ class Bottleneck(nn.Module):
 
     def __init__(self, inplanes, planes, stride=1, downsample=None):
         super(Bottleneck, self).__init__()
-        self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
+        # channels of each Bottleneck except the first in layer 1,2,3,4: conv1:4n -> n  conv2:n -> n  conv3:n -> 4n
+        # the first Bottleneck in layer 2,3,4 is conv1:2n -> n  conv2:n -> n  conv3:n -> 4n
+        # the first Bottleneck in layer 1 is conv1:n -> n  conv2:n -> n  conv3:n -> 4n
+        self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)  # kernel size: 1 * 1, stride:1, padding=0
         self.bn1 = nn.BatchNorm2d(planes)
+        # the 1st block in a layer: conv2:   kernel size: 3 * 3, stride:2, padding=1 -> reduce feature map to 1/2
+        # the other blocks in a layer: conv2: kernel size: 3 * 3, stride:1, padding=1 ->  feature map size does not change
         self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride,
                                padding=1, bias=False)
         self.bn2 = nn.BatchNorm2d(planes)
-        self.conv3 = nn.Conv2d(planes, planes * 4, kernel_size=1, bias=False)
+        self.conv3 = nn.Conv2d(planes, planes * 4, kernel_size=1, bias=False)  # kernel size: 1 * 1, stride:1, padding=0
         self.bn3 = nn.BatchNorm2d(planes * 4)
         self.relu = nn.ReLU(inplace=True)
         self.downsample = downsample
@@ -120,6 +125,7 @@ class ResNet(nn.Module):
 
     def _make_layer(self, block, planes, blocks, stride=1):
         downsample = None
+        # layer1: stride=1, layer2,3,4: stride=2
         if stride != 1 or self.inplanes != planes * block.expansion:
             downsample = nn.Sequential(
                 nn.Conv2d(self.inplanes, planes * block.expansion,
@@ -127,10 +133,13 @@ class ResNet(nn.Module):
                 nn.BatchNorm2d(planes * block.expansion),
             )
 
+        # pay attention to in-channels and out-channels in each bottleneck of every layer
         layers = []
+        # the 1st block in each layer reduce 2H*2W of feature map to H*W by a conv2 of k3-s2 in blockneck
         layers.append(block(self.inplanes, planes, stride, downsample))
         self.inplanes = planes * block.expansion
         for i in range(1, blocks):
+            # the following block feature maps in a layer have the same size which is 1/2 of the input of the 1st block
             layers.append(block(self.inplanes, planes))
 
         return nn.Sequential(*layers)
