@@ -179,6 +179,7 @@ def resnet34(pretrained=False, **kwargs):
 
 def resnet50(pretrained=False, **kwargs):
     """Constructs a ResNet-50 model.
+    resnet50 和 resnet34 深度一样，block不一样而已
 
     Args:
         pretrained (bool): If True, returns a model pre-trained on ImageNet
