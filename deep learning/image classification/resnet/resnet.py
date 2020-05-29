@@ -89,8 +89,10 @@ class Bottleneck(nn.Module):
         out = self.conv3(out)
         out = self.bn3(out)
 
-        # dowmsample will happen in 1st bottlenect of layer 2,3,4 to make the channels of residual same with out, then the residual
-        # connection is possible for add operation
+        # dowmsample will happen in 1st bottlenect of layer 2,3,4 to make the channels of residual same with out,
+        # then the residual connection is possible for add operation;
+        # Meanwhile, the input of 1st bottlenect of layer 1,2,3,4 is twice as large as output, so feature map of residual (2H * 2W)
+        # should be transformed to H * W ,the same as out
         if self.downsample is not None:
             residual = self.downsample(x)
 
@@ -148,7 +150,7 @@ class ResNet(nn.Module):
         self.inplanes = planes * block.expansion
         for i in range(1, blocks):
             # the following block feature maps in a layer have the same size which is 1/2 of the input of the 1st block
-            layers.append(block(self.inplanes, planes))
+            layers.append(block(self.inplanes, planes))  # default stride=1 in block
 
         return nn.Sequential(*layers)
 
