@@ -89,6 +89,8 @@ class Bottleneck(nn.Module):
         out = self.conv3(out)
         out = self.bn3(out)
 
+        # dowmsample will happen in 1st bottlenect of layer 2,3,4 to make the channels of residual same with out, then the residual
+        # connection is possible for add operation
         if self.downsample is not None:
             residual = self.downsample(x)
 
@@ -128,6 +130,9 @@ class ResNet(nn.Module):
     def _make_layer(self, block, planes, blocks, stride=1):
         downsample = None
         # layer1: stride=1, layer2,3,4: stride=2
+        # in layer 2,3,4, inplanes != planes * block.expansion which will induce dim inconsistence
+        # between resual and out in " out += residual ",
+        # here downsample will increase the dim of residual to dim of out
         if stride != 1 or self.inplanes != planes * block.expansion:
             downsample = nn.Sequential(
                 nn.Conv2d(self.inplanes, planes * block.expansion,
@@ -137,7 +142,7 @@ class ResNet(nn.Module):
 
         # pay attention to in-channels and out-channels in each bottleneck of every layer
         layers = []
-        # the 1st block in each layer reduce 2H*2W of feature map to H*W by a conv2 of k3-s2 in blockneck
+        # the 1st block in each layer reduce 2H*2W of feature map to H*W by a conv2 of k3-s2 in bottleneck
         layers.append(block(self.inplanes, planes, stride, downsample))
         self.inplanes = planes * block.expansion
         for i in range(1, blocks):
