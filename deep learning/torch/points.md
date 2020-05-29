@@ -16,6 +16,11 @@
   - xavier_normal_: sampled from N(0, std^2), a=gain \times \sqrt{\frac{2}{fan_in + fan_out}}
   - kaiming_uniform_: sampled from U(−a, a), a=gain \times \sqrt{\frac{3}{fan_mode}}
   - kaiming_normal_: sampled from N(0, std^2), a=gain \times \sqrt{\frac{1}{fan_mode}}
+  
+  
+- dtype
+  - float32 is the default type of tensor
+  - numpy default dtype is flaot64
 ​	
  
 ​	

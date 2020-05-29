@@ -118,6 +118,7 @@ class ResNet(nn.Module):
         self.fc = nn.Linear(512 * block.expansion, num_classes)
 
         for m in self.modules():
+            # we can see that all bias in modules is set by False except in Linear module and BatchNorm2d module
             if isinstance(m, nn.Conv2d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
                 # Kaiming initialization
@@ -228,3 +229,15 @@ def resnet152(pretrained=False, **kwargs):
     if pretrained:
         model.load_state_dict(model_zoo.load_url(model_urls['resnet152']))
     return model
+
+
+if __name__ == "__main__":
+    import numpy as np
+    import torch
+    model = resnet50(pretrained=False)
+    # tensor default dtype is float32, numpy default dtype is flaot64
+    # input_data = torch.from_numpy(np.ones((8, 3, 224, 224)), dtype=np.flaot32)
+    input_data = torch.from_numpy(np.ones((8, 3, 224, 224), dtype=np.uint8)).float()
+    while True:
+        output = model(input_data)
+    print(output)
