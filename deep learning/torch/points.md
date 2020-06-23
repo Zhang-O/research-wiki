@@ -1,4 +1,3 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 ### Torch
 - torch.Tensor
   - torch.Tensor is an alias for the default tensor type (torch.FloatTensor).
@@ -21,6 +20,10 @@
 - dtype
   - float32 is the default type of tensor
   - numpy default dtype is flaot64
+  
+ 
+- numpy && tensor transformation, memory sharing
+  - https://blog.csdn.net/shey666/article/details/85337212
 ​	
  
 ​	

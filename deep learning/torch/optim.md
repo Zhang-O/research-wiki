@@ -17,7 +17,7 @@
         - p: parameters
         - g: gradient 
         - v: velocity, 惯性冲量
-    - nesterov=True
+    - nesterov=True (相当于使用最新一步的惯性冲量，而不是上一步计算的惯性冲量)
       - v_{t+1} = momentum ∗ v_t + (g + weight_decay * p_t)  * (1 - dampening)
       - v_nesterov = (g + weight_decay * p_t) + momentum * v_{t+1}
       - p_{t+1} = p_t − lr ∗ v_nesterov
