@@ -1,3 +1,6 @@
+#### ref:
+- https://zhuanlan.zhihu.com/p/32626442
+
 #### SGD
 - torch.optim.SGD(params, lr=<required parameter>, momentum=0, dampening=0, weight_decay=0, nesterov=False)
   - args:
@@ -26,3 +29,6 @@
         - g: gradient 
         - v: velocity, 惯性冲量
     
+
+## per-parameter update
+#### Adagrad
