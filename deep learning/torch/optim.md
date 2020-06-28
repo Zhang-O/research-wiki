@@ -30,5 +30,21 @@
         - v: velocity, 惯性冲量
     
 
-## per-parameter update
+### per-parameter update
 #### Adagrad
+- formula:
+  - cache = cache + g^2  # monotonically increasing 
+  - p_{t+1} = p{t-1} - learning_rate * g / sqrt{cache + \epsilon}
+  
+#### RMSprop
+- formula:
+  - cache = \lambda * cache + (1 - \lambda) * g^2
+  - p_{t+1} = p{t-1} - learning_rate * g / sqrt{cache + \epsilon}
+  
+#### Adadetla
+  
+#### Adam
+- formula:
+  - cache = \lambda * cache + (1 - \lambda) * g^2
+  - v_{t+1} = \beta ∗ v_t + (1 - \beta) * g 
+  - p_{t+1} = p{t-1} - learning_rate * v_{t+1} / sqrt{cache + \epsilon}
