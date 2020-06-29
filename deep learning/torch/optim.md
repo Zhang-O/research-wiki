@@ -1,5 +1,8 @@
 #### ref:
 - https://zhuanlan.zhihu.com/p/32626442
+- exponential moving average: 
+  - https://blog.csdn.net/jason_cuijiahui/article/details/87652503
+  - https://blog.csdn.net/bestrivern/article/details/86023616
 
 #### SGD
 - torch.optim.SGD(params, lr=<required parameter>, momentum=0, dampening=0, weight_decay=0, nesterov=False)
