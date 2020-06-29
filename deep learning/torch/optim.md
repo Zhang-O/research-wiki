@@ -51,3 +51,8 @@
   - cache = \lambda * cache + (1 - \lambda) * g^2
   - v_{t+1} = \beta ∗ v_t + (1 - \beta) * g 
   - p_{t+1} = p{t-1} - learning_rate * v_{t+1} / sqrt{cache + \epsilon}
+  
+
+#### NAdam
+- formula:
+  
