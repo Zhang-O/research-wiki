@@ -36,21 +36,27 @@
 ### per-parameter update
 #### Adagrad
 - formula:
-  - cache = cache + g^2  # monotonically increasing 
-  - p_{t+1} = p{t-1} - learning_rate * g / sqrt{cache + \epsilon}
+  - v_t = v_{t-1} + g^2  # monotonically increasing 
+  - p_{t+1} = p_t - learning_rate * g / {sqrt{v_t} + \epsilon}
   
 #### RMSprop
 - formula:
-  - cache = \lambda * cache + (1 - \lambda) * g^2
-  - p_{t+1} = p{t-1} - learning_rate * g / sqrt{cache + \epsilon}
+  - v_t = \lambda * v_{t-1} + (1 - \lambda) * g^2
+  - p_{t+1} = p_t - learning_rate * g / (sqrt{v_t}  + \epsilon)
   
 #### Adadetla
   
 #### Adam
 - formula:
-  - cache = \lambda * cache + (1 - \lambda) * g^2
-  - v_{t+1} = \beta ∗ v_t + (1 - \beta) * g 
-  - p_{t+1} = p{t-1} - learning_rate * v_{t+1} / sqrt{cache + \epsilon}
+  - m_0 = 0, v_0= 0
+  - v_t = \lambda * v_{t-1} + (1 - \lambda) * g^2
+  - m_t = \beta ∗ m_{t-1} + (1 - \beta) * g 
+  - p_{t+1} = p_t - learning_rate * m_t / (sqrt{v_t} + \epsilon)
+  
+  - if add bias correction:
+    - \hat{m_t} = m_t / (1 - \beta ^ t)
+    - \hat{v_t} = v_t / (1 - \lambda ^ t)
+    - p_{t+1} = p_t - learning_rate * \hat{m_t} / (sqrt{\hat{v_t}} +  + \epsilon)
   
 
 #### NAdam
