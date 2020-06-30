@@ -60,5 +60,15 @@
   
 
 #### NAdam
+- add NAG to Adam
 - formula:
+    - m_0 = 0, v_0= 0
+  - v_t = \lambda * v_{t-1} + (1 - \lambda) * g^2
+  - m_t = \beta ∗ m_{t-1} + (1 - \beta) * g 
+  - m_t^{\prime} = \beta ∗ m_t + (1 - \beta) * g 
+  - p_{t+1} = p_t - learning_rate * m_t^{\prime} / (sqrt{v_t} + \epsilon)
   
+  - if add bias correction:
+    - \hat{m_t} = m_t^{\prime} / (1 - \beta ^ {t+1})
+    - \hat{v_t} = v_t / (1 - \lambda ^ t)
+    - p_{t+1} = p_t - learning_rate * \hat{m_t} / (sqrt{\hat{v_t}} +  + \epsilon)
