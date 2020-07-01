@@ -4,7 +4,7 @@
   - https://blog.csdn.net/jason_cuijiahui/article/details/87652503
   - https://blog.csdn.net/bestrivern/article/details/86023616
 
-#### SGD
+#### [SGD](http://www.columbia.edu/~nq6/publications/momentum.pdf)
 - torch.optim.SGD(params, lr=<required parameter>, momentum=0, dampening=0, weight_decay=0, nesterov=False)
   - args:
     - lr: learning rate
@@ -23,6 +23,7 @@
         - p: parameters
         - g: gradient 
         - v: velocity, 惯性冲量
+        
     - nesterov=True (相当于使用最新一步的惯性冲量，而不是上一步计算的惯性冲量)
       - v_{t+1} = momentum ∗ v_t + (g + weight_decay * p_t)  * (1 - dampening)
       - v_nesterov = (g + weight_decay * p_t) + momentum * v_{t+1}
@@ -34,19 +35,19 @@
     
 
 ### per-parameter update
-#### Adagrad
+#### [Adagrad](http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)
 - formula:
   - v_t = v_{t-1} + g^2  # monotonically increasing 
   - p_{t+1} = p_t - learning_rate * g / {sqrt{v_t} + \epsilon}
   
-#### RMSprop
+#### [RMSprop](http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf)
 - formula:
   - v_t = \lambda * v_{t-1} + (1 - \lambda) * g^2
   - p_{t+1} = p_t - learning_rate * g / (sqrt{v_t}  + \epsilon)
   
 #### Adadetla
   
-#### Adam
+#### [Adam](https://arxiv.org/abs/1412.6980)
 - formula:
   - m_0 = 0, v_0= 0
   - v_t = \lambda * v_{t-1} + (1 - \lambda) * g^2
