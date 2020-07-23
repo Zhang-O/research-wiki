@@ -28,7 +28,9 @@
 - numpy && tensor transformation, memory sharing
   - https://blog.csdn.net/shey666/article/details/85337212
   
-
+- model.eval() && torch.no_grad()
+  - with torch.no_grad： disables tracking of gradients in autograd.
+  - model.eval()： changes the forward() behaviour of the module it is called upon. eg, it disables dropout and has batch norm use the entire population statistics
 ​	
  
 ​	
