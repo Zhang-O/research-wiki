@@ -31,6 +31,14 @@
 - model.eval() && torch.no_grad()
   - with torch.no_grad： disables tracking of gradients in autograd.
   - model.eval()： changes the forward() behaviour of the module it is called upon. eg, it disables dropout and has batch norm use the entire population statistics
+  
+  
+- ToTensor()
+  - Converts a PIL Image or numpy.ndarray (H x W x C) in the range
+    [0, 255] to a torch.FloatTensor of shape (C x H x W) in the range [0.0, 1.0]
 ​	
+
+- tensor.to("cuda") or tensor.cuda()
+  - 当gpu 负载较高时，to(DEVICE) 耗时非常大，小图片都能达到80ms，负载不高时，可能只需要0.1ms 左右，相差数百倍
  
 ​	
