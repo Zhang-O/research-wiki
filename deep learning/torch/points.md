@@ -55,5 +55,10 @@
 
 - tensor.to("cuda") or tensor.cuda()
   - 当gpu 负载较高时，to(DEVICE) 耗时非常大，小图片都能达到80ms，负载不高时，可能只需要0.1ms 左右，相差数百倍.压测的时候这个地方困惑了我不少时间
+  
+- numpy load img from bytes
+  - cv2.imdecode(np.asarray(bytearray(img_raw_data), dtype=np.uint8), cv2.IMREAD_COLOR)
+  - cv2.imdecode(np.frombuffer(img_raw_data, dtype=np.uint8, count=-1), -1)
+  - cv2.imdecode(np.fromstring(img_raw_data, np.uint8), cv2.IMREAD_COLOR)
  
 ​	
