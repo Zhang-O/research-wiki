@@ -45,7 +45,7 @@
 - model.eval() && torch.no_grad()
   - with torch.no_grad： disables tracking of gradients in autograd.
   
-  - model.eval()： changes the forward() behaviour of the module it is called upon. eg, it disables dropout and has batch norm use the entire population statistics
+  - model.eval()： changes the forward() behaviour of the module it is called upon. eg, it disables dropout and has batch norm use the entire population statistics 
   
   
 - ToTensor()
@@ -60,5 +60,9 @@
   - cv2.imdecode(np.asarray(bytearray(img_raw_data), dtype=np.uint8), cv2.IMREAD_COLOR)
   - cv2.imdecode(np.frombuffer(img_raw_data, dtype=np.uint8, count=-1), -1)
   - cv2.imdecode(np.fromstring(img_raw_data, np.uint8), cv2.IMREAD_COLOR)
+  
+  
+- timing
+  - remember using torch.cuda.synchronize() when timing (cuda in torch run asynchronously)
  
 ​	
